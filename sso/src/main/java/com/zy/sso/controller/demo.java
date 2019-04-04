@@ -10,4 +10,9 @@ public class demo {
 	public String to() {
 		return "11";
 	}
+	
+	@GetMapping("/test2")
+	public String to2() {
+		return "哈哈，测试通过了";
+	}
 }
