@@ -13,6 +13,6 @@ public class demo {
 	
 	@GetMapping("/test2")
 	public String to2() {
-		return "哈哈，测试通过了9";
+		return "哈哈，测试通过了11";
 	}
 }
