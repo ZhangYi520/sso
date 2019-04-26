@@ -1,10 +1,106 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+<title>登录</title>
+<meta name="keywords" content="登录">
+<meta name="description" content="登录">
+<meta name="author" content="登录">
+<meta name="copyright" content="登录">
+<script type="text/javascript" src="/Public/js/qrcode.min.js"></script>
+<style>
+* {
+	margin: 0px;
+	padding: 0px;
+	font-family: "微软雅黑";
+}
+
+html, iframe, body {
+	height: 100%
+}
+
+.none {
+	display: none !important
+}
+
+@media screen and (max-width: 640px) {
+	#mobileFrame {
+		display: none !important;
+	}
+}
+
+#hidemobile {
+	font-size: 14px;
+	font-weight: bold;
+	border: 1px solid silver;
+	position: absolute;
+	right: 20px;
+	top: 8px;
+	width: 15px;
+	height: 15px;
+	text-align: center;
+	padding: 0;
+	line-height: 15px;
+	border-radius: 15px;
+	cursor: pointer;
+}
+</style>
+<!-- <script type="text/javascript" src="/static/js/protect.js"></script> -->
 </head>
 <body>
-	<h1>欢迎来到Login</h1>
+	<iframe src="http://jsdaima.hu-cheng.net/2018/09/1009/" frameborder="0"
+		width="100%" height="100%"></iframe>
+	<div id="mobileFrame" class=""
+		style="position: absolute; z-index: 999; width: 297px; height: 420px; right: 40px; bottom: 20px; padding: 32px 8px; background-image: url(&quot;/Public/images/small_phone.png&quot;); display: none;">
+		<div id="hidemobile">×</div>
+		<center>
+			<h2 style="line-height: 50px; margin-top: 80px; font-size: 20px;">扫码查看手机演示</h2>
+		</center>
+		<center>
+			<div id="qrcodes" style="margin-top: 10px;"
+				title="http://jsdaima.hu-cheng.net/2018/09/1009/">
+				<canvas width="170" height="170" style="display: none;"></canvas>
+				<img
+					src="data:image/png;base64,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"
+					style="display: block;">
+			</div>
+		</center>
+		<script type="text/javascript">        var qrcode = new QRCode(document.getElementById("qrcodes"), {
+            width : 170,
+            height : 170
+        });
+        qrcode.makeCode('http://jsdaima.hu-cheng.net/2018/09/1009/');
+    </script>
+	</div>
+	<div id="showmobile"
+		style="position: absolute; right: 16px; bottom: 200px; z-index: 999; width: 47px; height: 60px; cursor: pointer; display: block; background-image: url(&quot;/Public/images/phoneTip_right.png&quot;);"></div>
+	<script type="text/javascript">
+	window.onload=function(){
+    var hidemobilebtn=document.getElementById("hidemobile");
+    var showmobilebtn=document.getElementById("showmobile");
+    var mobileframe=document.getElementById("mobileFrame");
+    if(!hidemobilebtn) return false;
+    if(!showmobilebtn) return false;
+    if(!mobileframe) return false;
+    hidemobilebtn.onclick=function(){
+        mobileframe.style.display="none";
+        showmobilebtn.style.display="block";
+    }
+    showmobilebtn.onclick=function(){
+        this.style.display="none";
+        mobileframe.style.display="";
+    }
+}
+document.getElementById("mobileFrame").getElementsByTagName("iframe")[0].onload=function(){this.style.width="301px";}
+</script>
 </body>
+
+<script language="javascript" type="text/javascript"> 
+		function displayDate(){
+			　window.location.href="/sso/main"; 
+		}
+		
+</script>
 </html>
