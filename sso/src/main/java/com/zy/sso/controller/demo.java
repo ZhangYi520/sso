@@ -13,6 +13,6 @@ public class demo {
 	
 	@GetMapping("/test2")
 	public String to2() {
-		return "2019年4月24日14:29:20";
+		return "2019年4月24日14:29:20 ";
 	}
 }

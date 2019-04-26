@@ -13,11 +13,12 @@ import springfox.documentation.spring.web.plugins.Docket;
  * 
  **************************************************
  * @Description:项目描述
- * @author:CSX
+ * @author:zy
  * @date:2017年10月23日
  **************************************************
  */
 @Configuration
+//@EnableSwagger2
 public class Swagger2 {
  
 	@Bean
