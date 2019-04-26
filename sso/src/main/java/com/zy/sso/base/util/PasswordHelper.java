@@ -2,7 +2,6 @@ package com.zy.sso.base.util;
 
 
 import org.apache.shiro.crypto.hash.SimpleHash;
-import org.apache.shiro.util.ByteSource;
 
 /**
  * 

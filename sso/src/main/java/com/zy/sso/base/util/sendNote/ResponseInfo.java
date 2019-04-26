@@ -1,7 +1,6 @@
 package com.zy.sso.base.util.sendNote;
 
 import java.io.Serializable;
-import java.util.Map;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
