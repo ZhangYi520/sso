@@ -1,4 +1,4 @@
-package com.zy.sso.base.util;
+package com.zy.sso.base.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
