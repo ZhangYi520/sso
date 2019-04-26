@@ -25,8 +25,6 @@ import com.zy.sso.base.result.Result;
 import com.zy.sso.file.entity.FileEntity;
 import com.zy.sso.file.service.serviceI.FileServiceI;
 
-
-
 @Controller
 @RequestMapping("/file")
 @CrossOrigin

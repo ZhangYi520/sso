@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.qiyun.back.file.mybatis.dao.FileDao" >
+<mapper namespace="com.zy.sso.file.mybatis.dao.FileDao" >
 
   
-  <insert id="insertFile" parameterType="com.qiyun.back.file.entity.FileEntity" useGeneratedKeys="true" keyProperty="id">
+  <!-- <insert id="insertFile" parameterType="com.qiyun.back.file.entity.FileEntity" useGeneratedKeys="true" keyProperty="id">
   	insert into qiyun_meetsports_file (type,size,path,"nameOld","nameNew",ct)
   	values(#{type},#{size},#{path},#{nameOld},#{nameNew}, to_timestamp(#{ct},'yyyy-MM-dd hh24:mi:ss'))
   </insert>
@@ -27,7 +27,7 @@
    		id,type,size,path,path as pathAll,"nameOld","nameNew",to_char(ct,'yyyy-MM-dd hh24:mi:ss' ) as ct
      FROM  
      	qiyun_meetsports_file 
-  </select>
+  </select> -->
  
   
 
