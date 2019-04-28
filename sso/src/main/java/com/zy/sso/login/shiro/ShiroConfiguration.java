@@ -74,7 +74,7 @@ public class ShiroConfiguration {
     }
     
     
-  //加入注解的使用，不加入这个注解不生效
+   //加入注解的使用啊不加入这个注解不生效
     @Bean
     public AuthorizationAttributeSourceAdvisor getAuthorizationAttributeSourceAdvisor(DefaultWebSecurityManager securityManager) {
         AuthorizationAttributeSourceAdvisor aasa = new AuthorizationAttributeSourceAdvisor();
