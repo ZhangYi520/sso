@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns：th ="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" >
+<html xmlns:th ="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" >
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
@@ -24,7 +24,7 @@
 	      <div class='icon'>
 	        <img alt="" src='img/user_icon_copy.png'>
 	      </div>
-	      <input name="login" placeholder='用户名' maxlength="16" type='text' autocomplete="off" value=""/>
+	      <input name="userName" placeholder='用户名' maxlength="16" type='text' autocomplete="off" value=""/>
 	        <div class='validation'>
 	          <img alt="" src='img/tick.png'>
 	        </div>
@@ -124,7 +124,7 @@
 	    $('input[type="text"],input[type="password"]').blur(function () {
 	        $(this).prev().animate({ 'opacity': '.5' }, 200);
 	    });
-	    $('input[name="login"],input[name="pwd"]').keyup(function () {
+	    $('input[name="userName"],input[name="pwd"]').keyup(function () {
 	        var Len = $(this).val().length;
 	        if (!$(this).val() == '' && Len >= 5) {
 	            $(this).next().animate({
@@ -147,12 +147,12 @@
 // 			}); 
 	        //非空验证
 	        $('input[type="button"]').click(function () {
-	            var login = $('input[name="login"]').val();
-	            var pwd = $('input[name="pwd"]').val();
+	            var userName = $('input[name="userName"]').val();
+	            var password = $('input[name="pwd"]').val();
 	            var code = $('input[name="code"]').val();
-	            if (login == '') {
+	            if (userName == '') {
 	                ErroAlert('请输入您的账号');
-	            } else if (pwd == '') {
+	            } else if (password == '') {
 	                ErroAlert('请输入密码');
 	            } else if (code == '' || code.length != 4) {
 	                ErroAlert('输入验证码');
@@ -177,12 +177,12 @@
 
 	                //登陆
 	                var JsonData = { 
-	                		login: login,
-	                		pwd: pwd
+	                		userName: userName,
+	                		password: password
 	                };
-					
+					console.log(JsonData);
 					$.ajax({
-						url : '/sso/a',
+						url : '/sso/login',
 						type : 'post',
 						contentType : 'application/json;charset=UTF=8',
 						data : JSON.stringify(JsonData),

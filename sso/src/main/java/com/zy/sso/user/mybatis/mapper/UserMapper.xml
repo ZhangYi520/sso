@@ -7,7 +7,7 @@
 		<result property="userName" column="userName" />
 		<result property="password" column="password" />
 	
-		<collection property="role" javaType="com.zy.sso.user.entity.RoleEntity">
+		<collection property="role" ofType="com.zy.sso.user.entity.RoleEntity">
 			<id property="id" column="id" />
 			<result property="roleName" column="roleName" />
 
@@ -22,6 +22,12 @@
 	</resultMap>
 
 	<select id="queryUserByUserName" resultMap="userMap">
-		select
+		SELECT a.id,a.userName,a.`password`,c.roleName,e.action,e.actionDesc 
+		FROM zy_sso_user a 
+		INNER JOIN zy_sso_user_role b on a.id=b.userId
+		INNER JOIN zy_sso_role c on c.id=b.roleId
+		INNER JOIN zy_sso_role_author d on d.roleId=c.id
+		INNER JOIN zy_sso_author e on e.id=d.authorId
+		WHERE a.userName=#{userName}
 	</select>
 </mapper>

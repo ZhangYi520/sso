@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zy.sso.base.result.CodeMsg;
@@ -24,6 +25,7 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @Api(tags = { "登录-zy-0" })
 @SuppressWarnings(value = { "all" })
+//@RequestMapping("/login")
 public class LoginController {
 	@Autowired
 	private UserServiceImpl userServiceImpl;
@@ -33,16 +35,14 @@ public class LoginController {
 	public Result<Object> demo(@RequestBody UserEntity user) {
 		PasswordHelper pwd = new PasswordHelper();
 		System.out.println("加密前:"+user.toString());
-		pwd.encryptPassword(user);
-		System.out.println("加密后:"+user.toString());
 		Subject subject = SecurityUtils.getSubject();
 		UsernamePasswordToken token = new UsernamePasswordToken(user.getUserName(), user.getPassword());
 		try {
 			subject.login(token);
-//			Result<UserEntity> result = userServiceImpl.queryUserByUserName(user.getUserName());
-//	        UserEntity userEntity=result.getData();
-//			System.out.println("登陆成功");
-//			subject.getSession().setAttribute("user", userEntity);
+			Result<UserEntity> result = userServiceImpl.queryUserByUserName(user.getUserName());
+	        UserEntity userEntity=result.getData();
+			System.out.println("登陆成功:"+userEntity.toString());
+			subject.getSession().setAttribute("user", userEntity);
 			return Result.success();
 		} catch (LockedAccountException lae) {
 			lae.printStackTrace();

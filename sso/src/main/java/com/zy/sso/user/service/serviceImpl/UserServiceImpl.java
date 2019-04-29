@@ -1,5 +1,6 @@
 package com.zy.sso.user.service.serviceImpl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zy.sso.base.result.CodeMsg;
@@ -10,7 +11,7 @@ import com.zy.sso.user.service.UserServiceI;
 
 @Service
 public class UserServiceImpl implements UserServiceI {
-
+	@Autowired
 	private UserDao userDao;
 	@Override
 	public Result<UserEntity> queryUserByUserName(String userName) {
