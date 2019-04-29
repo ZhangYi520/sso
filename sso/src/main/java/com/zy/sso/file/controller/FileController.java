@@ -28,7 +28,7 @@ import com.zy.sso.file.service.serviceI.FileServiceI;
 @Controller
 @RequestMapping("/file")
 @CrossOrigin
-@Api(tags = { "文件管理-csx-1" })
+@Api(tags = { "文件管理-ZY-1" })
 public class FileController {
 	private static Logger log = LoggerFactory.getLogger(FileController.class);
 	

@@ -12,4 +12,6 @@ public class AuthorEntity implements Serializable{/**
 	
 	private Integer id;//主键
 	private String action;//操作
+	private Integer pid;
+	private String actionDesc;//操作描述
 }

@@ -81,8 +81,8 @@
 		var ajaxmockjax = 1;//是否启用虚拟Ajax的请求响 0 不启用  1 启用
 		//默认账号密码
 		
-		var truelogin = "zy";
-		var truepwd = "1234";
+// 		var truelogin = "zy";
+// 		var truepwd = "1234";
 		
 		var CodeVal = 0;
 	    Code();
@@ -178,23 +178,15 @@
 	                //登陆
 	                var JsonData = { 
 	                		login: login,
-	                		pwd: pwd, 
-	                		code: code 
+	                		pwd: pwd
 	                };
-					//此处做为ajax内部判断
-					var url = "";
-					if(JsonData.login == truelogin && JsonData.pwd == truepwd && JsonData.code.toUpperCase() == CodeVal.toUpperCase()){
-						url = "Ajax/Login";
-					}else{
-						url = "Ajax/LoginFalse";
-					}
 					
 					$.ajax({
 						url : '/sso/a',
-						type : 'get',
-// 						contentType : 'application/json;charset=UTF=8',
-// 						data : JSON.stringify(JsonData),
-// 						dataType : 'json',
+						type : 'post',
+						contentType : 'application/json;charset=UTF=8',
+						data : JSON.stringify(JsonData),
+						dataType : 'json',
 						success : function(res) {
 							console.log(res);
 							//ajax返回 

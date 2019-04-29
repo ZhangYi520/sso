@@ -10,7 +10,7 @@ import com.zy.sso.user.entity.UserEntity;
  * 
  **************************************************
  * @Description:后台密码util
- * @author:CSX
+ * @author:ZY
  * @date:2019年01月14日
  **************************************************
  */
@@ -27,8 +27,8 @@ public class PasswordHelper {
 	}
 	public static void main(String[] args) {
 		UserEntity user = new UserEntity();
-		user.setUserName("admin");
-		user.setPassword("123456");
+		user.setUserName("zy1");
+		user.setPassword("1234");
 		PasswordHelper.encryptPassword(user);
 		System.out.println(user.toString());
 	}

@@ -15,7 +15,7 @@ public interface FileServiceI {
 	
 	/**
 	 * @Description:文件上传
-	 * @author:CSX
+	 * @author:ZY
 	 * @date:2019年01月21日
 	 */	
 	public Integer uploadFile(HttpServletRequest request, MultipartFile multipartFile);
@@ -23,7 +23,7 @@ public interface FileServiceI {
 	
 	/**
 	 * @Description:根据ID修改文件上传
-	 * @author:CSX
+	 * @author:ZY
 	 * @date:2019年01月21日
 	 */	
 	public Integer modifyFile(HttpServletRequest request, MultipartFile multipartFile,Integer oldFileId);
@@ -31,21 +31,21 @@ public interface FileServiceI {
 
 	/**
 	 * @Description:根据ID删除文件
-	 * @author:CSX
+	 * @author:ZY
 	 * @date:2019年01月21日
 	 */	
 	public void deleteFile(Integer fileId);
 	
 	/**
 	 * @Description:根据ID查询文件
-	 * @author:CSX
+	 * @author:ZY
 	 * @date:2019年01月21日
 	 */	
 	public FileEntity getFileById(Integer fileId);
 	
 	/**
 	 * @Description:查询上传的所有文件
-	 * @author:CSX
+	 * @author:ZY
 	 * @date:2019年01月21日
 	 */	
 	public Result<List<FileEntity>> getFile(PageRequest vo);

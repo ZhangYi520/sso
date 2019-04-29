@@ -11,6 +11,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.zy.sso.base.result.Result;
 import com.zy.sso.user.entity.AuthorEntity;
 import com.zy.sso.user.entity.RoleEntity;
 import com.zy.sso.user.entity.UserEntity;
@@ -25,15 +26,16 @@ public class MyShiroRealm extends AuthorizingRealm{
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         //获取登录用户名
-        String name= (String) principalCollection.getPrimaryPrincipal();
+        String userName= (String) principalCollection.getPrimaryPrincipal();
         //查询用户名称
-        UserEntity UserEntity = userServiceImpl.findByName(name);
+        Result<UserEntity> result = userServiceImpl.queryUserByUserName(userName);
+        UserEntity userEntity=result.getData();
         //添加角色和权限
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-        for (RoleEntity role:UserEntity.getRole()) {
+        for (RoleEntity role:userEntity.getRole()) {
             //添加角色
             simpleAuthorizationInfo.addRole(role.getRoleName());
-            for (AuthorEntity authorEntity:role.getAuthorEntity()) {
+            for (AuthorEntity authorEntity:role.getAuthor()) {
                 //添加权限
                 simpleAuthorizationInfo.addStringPermission(authorEntity.getAction());
             }
@@ -49,17 +51,18 @@ public class MyShiroRealm extends AuthorizingRealm{
             return null;
         }
         //获取用户信息
-        String name = authenticationToken.getPrincipal().toString();
-        UserEntity UserEntity = userServiceImpl.findByName(name);
-        if (UserEntity == null) {
+        String userName = authenticationToken.getPrincipal().toString();
+        Result<UserEntity> result = userServiceImpl.queryUserByUserName(userName);
+        UserEntity userEntity=result.getData();
+        if (userEntity == null) {
             //这里返回后会报出对应异常
             return null;
         } else {
             //这里验证authenticationToken和simpleAuthenticationInfo的信息
             SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(
-            		name, 
-            		UserEntity.getPassword().toString(),
-            		ByteSource.Util.bytes(name),
+            		userName, 
+            		userEntity.getPassword().toString(),
+            		ByteSource.Util.bytes(userName),
             		getName());
             return simpleAuthenticationInfo;
         }

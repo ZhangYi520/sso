@@ -1,5 +1,6 @@
 package com.zy.sso.user.service;
 
+import com.zy.sso.base.result.Result;
 import com.zy.sso.user.entity.UserEntity;
 
 public interface UserServiceI {
@@ -8,5 +9,5 @@ public interface UserServiceI {
 	 * @param name
 	 * @return 
 	 */
-	public UserEntity findByName(String name);
+	public Result<UserEntity> queryUserByUserName(String name);
 }

@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper
-	namespace="com.zy.sso.user.mybatis.dao.UserDao">
+<mapper namespace="com.zy.sso.user.mybatis.dao.UserDao">
+
+	<resultMap type="com.zy.sso.user.entity.UserEntity" id="userMap">
+		<id property="id" column="id" />
+		<result property="userName" column="userName" />
+		<result property="password" column="password" />
 	
+		<collection property="role" javaType="com.zy.sso.user.entity.RoleEntity">
+			<id property="id" column="id" />
+			<result property="roleName" column="roleName" />
+
+			<collection property="author" ofType="com.zy.sso.user.entity.AuthorEntity">
+				<id property="id" column="id" />
+				<result property="action" column="action" />
+				<result property="pid" column="pid" />
+				<result property="actionDesc" column="actionDesc" />
+			</collection>
+
+		</collection>
+	</resultMap>
+
+	<select id="queryUserByUserName" resultMap="userMap">
+		select
+	</select>
 </mapper>
