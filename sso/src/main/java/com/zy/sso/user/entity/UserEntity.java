@@ -18,6 +18,7 @@ public class UserEntity implements Serializable{/**
 	private Integer id;//主键
 	private String userName;//用户名
 	private String password;//密码
+	private String token;//token
 	private List<RoleEntity> role;//角色集合
 	
 }

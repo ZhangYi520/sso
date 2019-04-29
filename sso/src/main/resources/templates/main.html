@@ -20,8 +20,20 @@
 	<input type="button" id="delUser" value="删除用户信息" onclick="delUser()">
 </body>
 <script language="javascript" type="text/javascript"> 
+
+		var userName="";
 		function displayDate(){
-			　window.location.href="../sso/login"; 
+			　$.ajax({
+				url : '/sso/logout',
+				type : 'get',
+				success : function(data) {
+					console.log(data);
+					　window.location.href="../sso/login"; 
+				},
+				error : function(data) {
+					console.log(data);
+				} 
+			
 		}
 		
 		function getUser(){

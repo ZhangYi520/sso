@@ -45,20 +45,15 @@ public class LoginController {
 			subject.login(token);
 			Result<UserEntity> result = userServiceImpl.queryUserByUserName(user.getUserName());
 	        UserEntity userEntity=result.getData();
-	       
+	        String tokenId = (String) subject.getSession().getId();
+	        userEntity.setToken(tokenId);
+			userEntity.setPassword(null);
 			//把用户信息保存进redis，采用hash
 			RedisTemplateUtil.redisTemplate.opsForHash().put("login",user.getUserName(),userEntity);
 			log.info("成功写入缓存:"+userEntity.toString());
-//			UserEntity u=(UserEntity)RedisTemplateUtil.redisTemplate.boundHashOps("login").get(userEntity.getUserName());//获取redis
-	        
-//	        RedisTemplateUtil.redisTemplate.opsForValue().set(userEntity.getUserName(), userEntity);
-//	        UserEntity u=(UserEntity)RedisTemplateUtil.redisTemplate.opsForValue().get(userEntity.getUserName());
-	        
-//			log.info(u.toString());
-			
-			
 //			subject.getSession().setAttribute("user", userEntity);
-			return Result.success();
+			
+			return Result.success(userEntity);
 		} catch (LockedAccountException lae) {
 			lae.printStackTrace();
 			return Result.error(CodeMsg.USER_PWD_ERROR);
@@ -70,6 +65,12 @@ public class LoginController {
 			e.printStackTrace();
 			return Result.error(CodeMsg.BASE_SERVER_ERROR);
 		}
-		
+	}
+	
+	@GetMapping("/logout")
+	public Result<Object> logout(String userName){
+		//退出登录，清楚缓存中的用户信息
+		RedisTemplateUtil.redisTemplate.opsForHash().delete("login",userName);
+		return Result.success();
 	}
 }
