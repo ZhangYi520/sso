@@ -34,7 +34,7 @@ public class CodeMsg {
 	public static CodeMsg DATA_ERROR = new CodeMsg(500008, "数据为空");
 	public static CodeMsg SQL_ERROR = new CodeMsg(500009, "SQL执行错误");
 	public static CodeMsg KAPTCHA_NOSEND = new CodeMsg(500010, "验证码未发送，请发送验证码后再试！");
-
+	public static CodeMsg USER_PWD_ERROR = new CodeMsg(500011, "用户名密码错误，请重新输入！！");
 	//文件上传502XXX
 	public static CodeMsg FILE_ERROR = new CodeMsg(502001, "文件上传失败");
 	public static CodeMsg FILE_TYPE_ERROR = new CodeMsg(502002, "文件类型错误");

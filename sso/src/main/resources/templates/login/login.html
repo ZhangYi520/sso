@@ -214,7 +214,10 @@
 										//跳转操作
                                     window.location.href="/sso/main";
                                 } else {
-                                    AjaxErro(data);
+                                	var index = layer.alert(res.msg, { icon: 5, time: 2000, offset: 't', closeBtn: 0, title: '错误信息', btn: [], anim: 2, shade: 0 });
+                               	    layer.style(index, {
+                               	        color: '#777'
+                               	    }); 
                                 }
                             }, 2400);
 							

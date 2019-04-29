@@ -4,13 +4,56 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+	<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+	<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src='js/stopExecutionOnTimeout.js?t=1'></script>
+    <script src="layui/layui.js" type="text/javascript"></script>
+    <script src="js/Particleground.js" type="text/javascript"></script>
+    <script src="Js/Treatment.js" type="text/javascript"></script>
+    <script src="js/jquery.mockjax.js" type="text/javascript"></script>
 <body>
 	<h1>登陆成功,欢迎来到首页</h1>
 	<input type="button" id="dw" value="退出登录" onclick="displayDate()">
+
+	<input type="button" id="getUser" value="获取用户信息" onclick="getUser()">
+
+	<input type="button" id="delUser" value="删除用户信息" onclick="delUser()">
 </body>
 <script language="javascript" type="text/javascript"> 
 		function displayDate(){
 			　window.location.href="../sso/login"; 
+		}
+		
+		function getUser(){
+			　$.ajax({
+				url : '/sso/user/getUser',
+				type : 'get',
+				//contentType : 'application/json;charset=UTF=8',
+				//data : JSON.stringify(JsonData),
+				//dataType : 'json',
+				success : function(data) {
+					console.log(data);
+				},
+				error : function(data) {
+					console.log(data);
+				} 
+		})
+		}
+		
+		function delUser(){
+			　$.ajax({
+				url : '/sso/user/delUser',
+				type : 'get',
+				//contentType : 'application/json;charset=UTF=8',
+				//data : JSON.stringify(JsonData),
+				//dataType : 'json',
+				success : function(data) {
+					console.log(data);
+				},
+				error : function(data) {
+					console.log(data);
+				} 
+		})
 		}
 </script>
 </html>
