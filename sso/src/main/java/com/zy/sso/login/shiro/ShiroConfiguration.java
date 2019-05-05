@@ -5,6 +5,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import javax.servlet.Filter;
+
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -28,6 +30,10 @@ public class ShiroConfiguration {
         // 登录成功后要跳转的链接
         shiroFilterFactoryBean.setSuccessUrl("/index");
         
+        //自定义角色权限过滤器
+        Map<String, Filter> filtersMap = new LinkedHashMap<>();
+        filtersMap.put("rolesOrFilter",new RolesOrFilter());//可以配置RoleOrFilter的Bean
+        shiroFilterFactoryBean.setFilters(filtersMap);//给bean设置好这个自定义的过滤器
         //拦截器.
         Map<String,String> filterChainDefinitionMap = new LinkedHashMap<String,String>();
         // 配置不会被拦截的链接 顺序判断
@@ -46,6 +52,13 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/layui/**", "anon");
         filterChainDefinitionMap.put("/ruoyi/**", "anon");
         filterChainDefinitionMap.put("/main", "anon");
+        
+        //角色权限配置
+        filterChainDefinitionMap.put("/xxx1", "roles[超级管理员,管理员]");//and关系
+        filterChainDefinitionMap.put("/xxx2", "perms[/select,/delete]");//and关系
+        filterChainDefinitionMap.put("/xxx3", "rolesOrFilter[超级管理员,管理员]");//或关系，这里是通过上面自定义过滤器实现的
+      
+        
 //        filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/**", "authc");
  

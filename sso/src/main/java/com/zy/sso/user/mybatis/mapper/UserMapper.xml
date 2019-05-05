@@ -8,11 +8,11 @@
 		<result property="password" column="password" />
 	
 		<collection property="role" ofType="com.zy.sso.user.entity.RoleEntity">
-			<id property="id" column="id" />
+			<id property="id" column="role_id" />
 			<result property="roleName" column="roleName" />
 
 			<collection property="author" ofType="com.zy.sso.user.entity.AuthorEntity">
-				<id property="id" column="id" />
+				<id property="id" column="author_id" />
 				<result property="action" column="action" />
 				<result property="pid" column="pid" />
 				<result property="actionDesc" column="actionDesc" />
@@ -24,10 +24,10 @@
 	<select id="queryUserByUserName" resultMap="userMap">
 		SELECT a.id,a.userName,a.`password`,c.roleName,e.action,e.actionDesc 
 		FROM zy_sso_user a 
-		INNER JOIN zy_sso_user_role b on a.id=b.userId
-		INNER JOIN zy_sso_role c on c.id=b.roleId
-		INNER JOIN zy_sso_role_author d on d.roleId=c.id
-		INNER JOIN zy_sso_author e on e.id=d.authorId
+		LEFT JOIN zy_sso_user_role b on a.id=b.userId
+		LEFT JOIN zy_sso_role c on c.id=b.roleId
+		LEFT JOIN zy_sso_role_author d on d.roleId=c.id
+		LEFT JOIN zy_sso_author e on e.id=d.authorId
 		WHERE a.userName=#{userName}
 	</select>
 </mapper>

@@ -30,6 +30,7 @@ public class MyShiroRealm extends AuthorizingRealm{
         //查询用户名称
         Result<UserEntity> result = userServiceImpl.queryUserByUserName(userName);
         UserEntity userEntity=result.getData();
+        System.out.println("用户角色权限信息："+userEntity.toString());
         //添加角色和权限
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         for (RoleEntity role:userEntity.getRole()) {
@@ -54,10 +55,12 @@ public class MyShiroRealm extends AuthorizingRealm{
         String userName = authenticationToken.getPrincipal().toString();
         Result<UserEntity> result = userServiceImpl.queryUserByUserName(userName);
         UserEntity userEntity=result.getData();
+       
         if (userEntity == null) {
             //这里返回后会报出对应异常
             return null;
         } else {
+        	 System.out.println("用户认证信息："+userEntity.toString());
             //这里验证authenticationToken和simpleAuthenticationInfo的信息
             SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(
             		userName, 
