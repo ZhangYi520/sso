@@ -8,11 +8,11 @@
     <meta http-equiv="cache-control" content="no-cache">
     <meta http-equiv="expires" content="0"> 
 	<title>登录界面</title>
-    <link href="css/default.css" rel="stylesheet" type="text/css" />
+    <link href=".。/static/css/default.css" th:href="@{/css/default.css}" rel="stylesheet" type="text/css" />
 	<!--必要样式-->
-    <link href="css/styles.css" rel="stylesheet" type="text/css" />
-    <link href="css/demo.css" rel="stylesheet" type="text/css" />
-    <link href="css/loaders.css" rel="stylesheet" type="text/css" />
+    <link href=".。/static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" />
+    <link href=".。/static/css/demo.css" th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" />
+    <link href=".。/static/css/loaders.css" th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" />
 </head>
 <body>
 	<div class='login'>
@@ -68,15 +68,15 @@
 	  <p>认证中...</p>
 	</div>
 	<div class="OverWindows"></div>
-    <link href="layui/css/layui.css" rel="stylesheet" type="text/css" />
+    <link href="../static/layui/css/layui.css" th:href="@{/css/default.css}" rel="stylesheet" type="text/css" />
 	<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
-	<script type="text/javascript" src="js/jquery-ui.min.js"></script>
-	<script type="text/javascript" src='js/stopExecutionOnTimeout.js?t=1'></script>
-    <script src="layui/layui.js" type="text/javascript"></script>
-    <script src="js/Particleground.js" type="text/javascript"></script>
-    <script src="Js/Treatment.js" type="text/javascript"></script>
-    <script src="js/jquery.mockjax.js" type="text/javascript"></script>
-	<script type="text/javascript" th:inline="none">
+	<script src="../static/js/jquery-ui.min.js"  th:href="@{/js/jquery-ui.min.js}" type="text/javascript"></script>
+	<script src="../static/js/stopExecutionOnTimeout.js?t=1"  th:href="@{/js/stopExecutionOnTimeout.js}" type="text/javascript"></script>
+    <script src="../static/layui/layui.js" th:href="@{/layui/layui.js}" type="text/javascript"></script>
+    <script src="../static/js/Particleground.js" th:href="@{/js/Particleground.js}" type="text/javascript"></script>
+    <script src="../static/js/Treatment.js" th:href="@{/js/Treatment.js}" type="text/javascript"></script>
+    <script src="../static/js/jquery.mockjax.js" th:href="@{/js/jquery.mockjax.js}" type="text/javascript"></script>
+	<script type="text/javascript"  th:inline="none">
 		var canGetCookie = 0;//是否支持存储Cookie 0 不支持 1 支持
 		var ajaxmockjax = 1;//是否启用虚拟Ajax的请求响 0 不启用  1 启用
 		//默认账号密码
@@ -212,7 +212,7 @@
                                     $('.success').fadeIn(1000);
                                     $('.success').html(res.msg);
 										//跳转操作
-                                    window.location.href="/sso/main";
+                                    window.location.href="/main";
                                 } else {
                                 	var index = layer.alert(res.msg, { icon: 5, time: 2000, offset: 't', closeBtn: 0, title: '错误信息', btn: [], anim: 2, shade: 0 });
                                	    layer.style(index, {

@@ -26,7 +26,7 @@ public class ShiroConfiguration {
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
         shiroFilterFactoryBean.setLoginUrl("/login");
         // 登录成功后要跳转的链接
-        shiroFilterFactoryBean.setSuccessUrl("/main");
+        shiroFilterFactoryBean.setSuccessUrl("/index");
         
         //拦截器.
         Map<String,String> filterChainDefinitionMap = new LinkedHashMap<String,String>();
@@ -36,10 +36,17 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/login", "anon");
         //<!-- 过滤链定义，从上向下顺序执行，一般将/**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
         //<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
-        filterChainDefinitionMap.put("/css", "anon");
-        filterChainDefinitionMap.put("/img", "anon");
-        filterChainDefinitionMap.put("/js", "anon");
-        filterChainDefinitionMap.put("/layui", "anon");
+        filterChainDefinitionMap.put("/css/**", "anon");
+        filterChainDefinitionMap.put("/ajax/**", "anon");
+        filterChainDefinitionMap.put("/file/**", "anon");
+        filterChainDefinitionMap.put("/fonts/**", "anon");
+        filterChainDefinitionMap.put("/i18n/**", "anon");
+        filterChainDefinitionMap.put("/img/**", "anon");
+        filterChainDefinitionMap.put("/js/**", "anon");
+        filterChainDefinitionMap.put("/layui/**", "anon");
+        filterChainDefinitionMap.put("/ruoyi/**", "anon");
+        filterChainDefinitionMap.put("/main", "anon");
+//        filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/**", "authc");
  
         //未授权界面;
