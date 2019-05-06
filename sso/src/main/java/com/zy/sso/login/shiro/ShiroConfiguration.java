@@ -66,16 +66,13 @@ public class ShiroConfiguration {
       // 配置不会被拦截的链接 从上向下顺序判断
 //        filterChainDefinitionMap.put("/toLogin", "anon");
         
-        filterChainDefinitionMap.put("/**", "kickout,authc");
-        
         //角色权限配置
         filterChainDefinitionMap.put("/xxx1", "roles[超级管理员,管理员]");//and关系
         filterChainDefinitionMap.put("/xxx2", "perms[/select,/delete]");//and关系
         filterChainDefinitionMap.put("/xxx3", "rolesOrFilter[超级管理员,管理员]");//或关系，这里是通过上面自定义过滤器实现的
       
-        
 //        filterChainDefinitionMap.put("/static/**", "anon");
-        filterChainDefinitionMap.put("/**", "authc");
+        filterChainDefinitionMap.put("/**", "user,kickout");
  
         //未授权界面;
 //        shiroFilterFactoryBean.setUnauthorizedUrl("/403");

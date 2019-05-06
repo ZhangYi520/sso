@@ -79,8 +79,11 @@
     <script src="js/jquery.mockjax.js" th:href="@{/js/jquery.mockjax.js}" type="text/javascript"></script>
 	<script type="text/javascript"  th:inline="none">
 	
-// 		var href=window.location.href;
-// 		console.log(href);
+		login();
+		function login(){
+			var href=window.location.href;
+			console.log(href);
+		}
 // 		if(href.indexOf("kickout")>0){
 // 		    setTimeout("top.location.href='/toLogin?kickout';", 0); 
 // 		}else{

@@ -41,6 +41,7 @@ public class LoginController {
 		Subject subject = SecurityUtils.getSubject();
 		UsernamePasswordToken token = new UsernamePasswordToken(user.getUserName(), user.getPassword());
 		try {
+			token.setRememberMe(true);
 			subject.login(token);
 			
 			Result<UserEntity> result = userServiceImpl.queryUserByUserName(user.getUserName());
