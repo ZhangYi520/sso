@@ -1,7 +1,7 @@
-package com.zy.sso.user.service;
+package com.zy.sso.systemManage.user.service;
 
 import com.zy.sso.base.result.Result;
-import com.zy.sso.user.entity.UserEntity;
+import com.zy.sso.systemManage.user.entity.UserEntity;
 
 public interface UserServiceI {
 	

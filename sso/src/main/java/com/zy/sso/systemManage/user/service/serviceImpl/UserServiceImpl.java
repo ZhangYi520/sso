@@ -1,13 +1,13 @@
-package com.zy.sso.user.service.serviceImpl;
+package com.zy.sso.systemManage.user.service.serviceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zy.sso.base.result.CodeMsg;
 import com.zy.sso.base.result.Result;
-import com.zy.sso.user.entity.UserEntity;
-import com.zy.sso.user.mybatis.dao.UserDao;
-import com.zy.sso.user.service.UserServiceI;
+import com.zy.sso.systemManage.user.entity.UserEntity;
+import com.zy.sso.systemManage.user.mybatis.dao.UserDao;
+import com.zy.sso.systemManage.user.service.UserServiceI;
 
 @Service
 public class UserServiceImpl implements UserServiceI {

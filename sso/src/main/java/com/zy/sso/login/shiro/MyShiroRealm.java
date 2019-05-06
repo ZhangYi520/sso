@@ -12,10 +12,10 @@ import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.zy.sso.base.result.Result;
-import com.zy.sso.user.entity.AuthorEntity;
-import com.zy.sso.user.entity.RoleEntity;
-import com.zy.sso.user.entity.UserEntity;
-import com.zy.sso.user.service.serviceImpl.UserServiceImpl;
+import com.zy.sso.systemManage.user.entity.AuthorEntity;
+import com.zy.sso.systemManage.user.entity.RoleEntity;
+import com.zy.sso.systemManage.user.entity.UserEntity;
+import com.zy.sso.systemManage.user.service.serviceImpl.UserServiceImpl;
 
 public class MyShiroRealm extends AuthorizingRealm{
 	//用于用户查询
@@ -38,7 +38,7 @@ public class MyShiroRealm extends AuthorizingRealm{
             simpleAuthorizationInfo.addRole(role.getRoleName());
             for (AuthorEntity authorEntity:role.getAuthor()) {
                 //添加权限
-                simpleAuthorizationInfo.addStringPermission(authorEntity.getAction());
+                simpleAuthorizationInfo.addStringPermission(authorEntity.getUrl());
             }
         }
         return simpleAuthorizationInfo;

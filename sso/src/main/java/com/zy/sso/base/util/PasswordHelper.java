@@ -3,7 +3,8 @@ package com.zy.sso.base.util;
 
 import org.apache.shiro.crypto.hash.SimpleHash;
 
-import com.zy.sso.user.entity.UserEntity;
+import com.zy.sso.systemManage.user.entity.UserEntity;
+
 
 
 /**

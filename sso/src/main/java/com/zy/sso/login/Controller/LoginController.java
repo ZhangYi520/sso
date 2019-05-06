@@ -18,9 +18,8 @@ import com.zy.sso.base.result.CodeMsg;
 import com.zy.sso.base.result.Result;
 import com.zy.sso.base.util.PasswordHelper;
 import com.zy.sso.base.util.RedisTemplateUtil;
-import com.zy.sso.user.entity.UserEntity;
-import com.zy.sso.user.mybatis.dao.UserDao;
-import com.zy.sso.user.service.serviceImpl.UserServiceImpl;
+import com.zy.sso.systemManage.user.entity.UserEntity;
+import com.zy.sso.systemManage.user.service.serviceImpl.UserServiceImpl;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -43,9 +42,11 @@ public class LoginController {
 		UsernamePasswordToken token = new UsernamePasswordToken(user.getUserName(), user.getPassword());
 		try {
 			subject.login(token);
+			
 			Result<UserEntity> result = userServiceImpl.queryUserByUserName(user.getUserName());
 	        UserEntity userEntity=result.getData();
 	        String tokenId = (String) subject.getSession().getId();
+	        System.out.println("当前登录用户的sessionId:"+tokenId);
 	        userEntity.setToken(tokenId);
 			userEntity.setPassword(null);
 			//把用户信息保存进redis，采用hash

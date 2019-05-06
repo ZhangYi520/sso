@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zy.sso.systemManage.user.mybatis.dao.UserDao">
+
+	<resultMap type="com.zy.sso.systemManage.user.entity.UserEntity" id="userMap">
+		<!-- property实体类属性     column SQL查询字段-->
+		<id property="id" column="id" />
+		<result property="userName" column="userName" />
+		<result property="password" column="password" />
+	
+		<collection property="role" ofType="com.zy.sso.systemManage.user.entity.RoleEntity">
+			<id property="id" column="role_id" />
+			<result property="roleName" column="roleName" />
+
+			<collection property="author" ofType="com.zy.sso.systemManage.user.entity.AuthorEntity">
+				<id property="menuId" column="menu_id" />
+				<result property="url" column="url" />
+				<result property="menuName" column="menu_name" />
+			</collection>
+
+		</collection>
+	</resultMap>
+
+	<select id="queryUserByUserName" resultMap="userMap">
+		SELECT a.id,a.userName,a.`password`,c.roleName,e.url,e.menu_name as menuName
+		FROM zy_sso_user a 
+		LEFT JOIN zy_sso_user_role b on a.id=b.userId
+		LEFT JOIN zy_sso_role c on c.id=b.roleId
+		LEFT JOIN zy_sso_role_menu d on d.roleId=c.id
+		LEFT JOIN zy_sso_menu e on e.menu_id=d.menu_id
+		WHERE a.userName=#{userName}
+	</select>
+</mapper>

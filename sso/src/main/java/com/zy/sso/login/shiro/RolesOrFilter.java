@@ -5,7 +5,6 @@ import javax.servlet.ServletResponse;
 
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authz.AuthorizationFilter;
-import org.assertj.core.util.Arrays;
 
 /**  
 *   
