@@ -8,5 +8,70 @@
 <body>
 
    
+   <seript>
+   
+   login();
+		function login(){
+			var href=window.location.href;
+			console.log(href);
+			if(href.indexOf("kickout")>0){
+				top.location.href="/login?Havelogin";
+			}
+			if(href.indexOf("Havelogin")>0){
+				alert("您的账号已在另一地方登录，请重新登录！");
+			}
+		}
+		
+		
+		
+ 		  $.ajax({
+						url : '/login',
+						type : 'post',
+						contentType : 'application/json;charset=UTF=8',
+						data : JSON.stringify(JsonData),
+						dataType : 'json',
+						success : function(res) {
+							console.log(res);
+							//ajax返回 
+                            //认证完成
+                            setTimeout(function () {
+                                $('.authent').show().animate({ right: 90 }, {
+                                    easing: 'easeOutQuint',
+                                    duration: 600,
+                                    queue: false
+                                });
+                                $('.authent').animate({ opacity: 0 }, {
+                                    duration: 200,
+                                    queue: false
+                                }).addClass('visible');
+                                $('.login').removeClass('testtwo'); //平移特效
+                            }, 2000);
+                            setTimeout(function () {
+                                $('.authent').hide();
+                                $('.login').removeClass('test');
+                                if (res.code == '0') {
+                                    //登录成功
+                                    $('.login div').fadeOut(100);
+                                    $('.success').fadeIn(1000);
+                                    $('.success').html(res.msg);
+										//跳转操作
+                                    window.location.href="/index?userName="+userName;
+                                } else {
+                                	var index = layer.alert(res.msg, { icon: 5, time: 2000, offset: 't', closeBtn: 0, title: '错误信息', btn: [], anim: 2, shade: 0 });
+                               	    layer.style(index, {
+                               	        color: '#777'
+                               	    }); 
+                                }
+                            }, 2400);
+							
+							//form.render('select');//重新渲染
+						},
+						error : function(res) {
+							
+						}
+					})
+					
+					
+					 </seript>
 </body>
 </html>
