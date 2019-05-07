@@ -83,6 +83,12 @@
 		function login(){
 			var href=window.location.href;
 			console.log(href);
+			if(href.indexOf("kickout")>0){
+				top.location.href="/login?Havelogin";
+			}
+			if(href.indexOf("Havelogin")>0){
+				alert("您的账号已在另一地方登录，请重新登录！");
+			}
 		}
 // 		if(href.indexOf("kickout")>0){
 // 		    setTimeout("top.location.href='/toLogin?kickout';", 0); 

@@ -72,7 +72,7 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/xxx3", "rolesOrFilter[超级管理员,管理员]");//或关系，这里是通过上面自定义过滤器实现的
       
 //        filterChainDefinitionMap.put("/static/**", "anon");
-        filterChainDefinitionMap.put("/**", "user,kickout");
+        filterChainDefinitionMap.put("/**", "kickout,authc");
  
         //未授权界面;
 //        shiroFilterFactoryBean.setUnauthorizedUrl("/403");
