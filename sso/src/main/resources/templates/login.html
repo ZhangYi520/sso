@@ -86,9 +86,16 @@
 			if(href.indexOf("kickout")>0){
 				top.location.href="/login?Havelogin";
 			}
-			if(href.indexOf("Havelogin")>0){
+			else if(href.indexOf("Havelogin")>0){
 				alert("您的账号已在另一地方登录，请重新登录！");
 			}
+			
+// 			else if(href.indexOf("noLogin")>0){
+// 				top.location.href="/login?noMesLogin";
+// 			}else if(href.indexOf("noMesLogin")>0){
+// 				alert("您还未登录,请登录！");
+// 			}
+			
 		}
 // 		if(href.indexOf("kickout")>0){
 // 		    setTimeout("top.location.href='/toLogin?kickout';", 0); 
