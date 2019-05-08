@@ -1,10 +1,14 @@
 package com.zy.sso.systemManage.user.service.serviceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
 import com.zy.sso.base.result.CodeMsg;
 import com.zy.sso.base.result.Result;
+import com.zy.sso.systemManage.paramVo.UserPara;
 import com.zy.sso.systemManage.user.entity.UserEntity;
 import com.zy.sso.systemManage.user.mybatis.dao.UserDao;
 import com.zy.sso.systemManage.user.service.UserServiceI;
@@ -22,6 +26,14 @@ public class UserServiceImpl implements UserServiceI {
 			}
 		}
 		return Result.error(CodeMsg.BASE_SERVER_ERROR);
+	}
+	
+	@Override
+	public Result<List<UserEntity>> getUserList(UserPara u) {
+		PageHelper.startPage(u.getPage(), u.getPageSize());
+		List<UserEntity> l=userDao.getUserList(u);
+		System.out.println("server:"+l.toString());
+		return Result.success(l);
 	}
 
 }

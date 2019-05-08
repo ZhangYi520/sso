@@ -30,4 +30,13 @@
 		LEFT JOIN zy_sso_menu e on e.menu_id=d.menu_id
 		WHERE a.userName=#{userName}
 	</select>
+	
+	<select id="getUserList" resultType="com.zy.sso.systemManage.user.entity.UserEntity" parameterType="com.zy.sso.systemManage.paramVo.UserPara">
+		select id,userName,password,headImg,ct
+		from zy_sso_user
+		where 1=1
+		<if test="userName != null and userName !='' ">
+			and userName = #{userName}
+		</if>
+	</select>
 </mapper>

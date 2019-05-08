@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ToSysViewController {
 	@GetMapping("/toUser")
 	public String toUser() {
-		return "system/userList";
+		return "system/user/user";
 	}
 	
 	@GetMapping("/toRole")
