@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.zy.sso.base.result.CodeMsg;
 import com.zy.sso.base.result.Result;
+import com.zy.sso.base.util.JWTUtil;
 import com.zy.sso.base.util.PasswordHelper;
 import com.zy.sso.base.util.RedisTemplateUtil;
 import com.zy.sso.systemManage.user.entity.UserEntity;
@@ -46,7 +47,8 @@ public class LoginController {
 			
 			Result<UserEntity> result = userServiceImpl.queryUserByUserName(user.getUserName());
 	        UserEntity userEntity=result.getData();
-	        String tokenId = (String) subject.getSession().getId();
+//	        String tokenId = (String) subject.getSession().getId();
+	        String tokenId = JWTUtil.sign(userEntity.getUserName(), userEntity.getPassword());
 	        System.out.println("当前登录用户的sessionId:"+tokenId);
 	        userEntity.setToken(tokenId);
 			userEntity.setPassword(null);
