@@ -2,6 +2,12 @@ package com.zy.sso.login.Controller;
 
 import java.util.List;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -21,6 +27,17 @@ public class ToViewController {
 	@GetMapping("/login")
 	public String toLogin() {
 		return "login";
+	}
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session, ModelMap model) {
+	    Subject subject = SecurityUtils.getSubject();
+	    String usernName = (String) subject.getPrincipal();
+	    System.out.println("退出登录的用户："+usernName);
+	    RedisTemplateUtil.redisTemplate.opsForHash().delete("login",usernName);
+	    subject.logout();
+	    model.put("msg","安全退出！");
+	    return "login";
 	}
 	
 	@GetMapping("/index")

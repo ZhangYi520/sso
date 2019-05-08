@@ -48,7 +48,7 @@ public class ShiroConfiguration {
         Map<String,String> filterChainDefinitionMap = new LinkedHashMap<String,String>();
         // 配置不会被拦截的链接 顺序判断
         //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
-        filterChainDefinitionMap.put("/logout", "logout");
+//        filterChainDefinitionMap.put("/logout", "logout");
         filterChainDefinitionMap.put("/login", "anon");
         //<!-- 过滤链定义，从上向下顺序执行，一般将/**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
         //<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
@@ -61,7 +61,7 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/js/**", "anon");
         filterChainDefinitionMap.put("/layui/**", "anon");
         filterChainDefinitionMap.put("/ruoyi/**", "anon");
-        filterChainDefinitionMap.put("/main", "anon");
+//        filterChainDefinitionMap.put("/main", "anon");
         
       // 配置不会被拦截的链接 从上向下顺序判断
 //        filterChainDefinitionMap.put("/toLogin", "anon");
@@ -153,7 +153,7 @@ public class ShiroConfiguration {
         //添加缓存管理器
         enterCacheSessionDAO.setCacheManager(ehCacheManager());
         //添加ehcache活跃缓存名称（必须和ehcache缓存名称一致）
-        enterCacheSessionDAO.setActiveSessionsCacheName("shiro-activeSessionCache");
+        enterCacheSessionDAO.setActiveSessionsCacheName("es");
         return enterCacheSessionDAO;
     }
     

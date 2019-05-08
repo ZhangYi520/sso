@@ -71,10 +71,10 @@ public class LoginController {
 		}
 	}
 	
-	@GetMapping("/logout")
-	public Result<Object> logout(String userName){
-		//退出登录，清楚缓存中的用户信息
-		RedisTemplateUtil.redisTemplate.opsForHash().delete("login",userName);
-		return Result.success();
-	}
+//	@GetMapping("/logout")
+//	public Result<Object> logout(String userName){
+//		//退出登录，清楚缓存中的用户信息
+//		
+//		return Result.success();
+//	}
 }

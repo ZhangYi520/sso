@@ -56,13 +56,14 @@ public class KickoutSessionFilter extends AccessControlFilter {
 	// 设置Cache的key的前缀
 	public void setCacheManager(CacheManager cacheManager) {
 		// 必须和ehcache缓存配置中的缓存name一致
-		this.cache = cacheManager.getCache("shiro-activeSessionCache");
+		this.cache = cacheManager.getCache("passwordRetryCache");
 	}
 
 	//返回结果是false的时候才会执行下面的onAccessDenied方法
 	@Override
 	protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue)
 			throws Exception {
+//		WebUtils.issueRedirect(request, response, "/login");
 		return false;
 	}
 
