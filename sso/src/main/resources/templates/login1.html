@@ -72,6 +72,23 @@
 					})
 					
 					
+					 $.ajax({
+						url : '/login',
+						type : 'post',
+						contentType : 'application/json;charset=UTF=8',
+						data : JSON.stringify(JsonData),
+						dataType : 'json',
+						success : function(res) {
+							console.log(res);
+                           
+						},
+						error : function(res) {
+							
+						}
+					})
+					
+					
+					
 					 </seript>
 </body>
 </html>
