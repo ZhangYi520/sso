@@ -15,25 +15,25 @@
 	<th:block th:include="include :: layout-latest-js" />
 	<th:block th:include="include :: ztree-js" />
 	<script th:inline="javascript">
-// 	$("#demo").click(function(){
-// 		console.log(1);
-// 		 $.ajax({
-// 				url : '/user/getUserList',
-// 				type : 'post',
-// 				contentType : 'application/json;charset=UTF=8',
-// 				data : JSON.stringify({
-// 					"userName":"zy"
-// 				}),
-// 				dataType : 'json',
-// 				success : function(res) {
-// 					console.log(res);
+	$("#demo").click(function(){
+		console.log(1);
+		 $.ajax({
+				url : '/user/getUserList',
+				type : 'post',
+				contentType : 'application/json;charset=UTF=8',
+				data : JSON.stringify({
+					"userName":"zy"
+				}),
+				dataType : 'json',
+				success : function(res) {
+					console.log(res);
 					
-// 				},
-// 				error : function(res) {
+				},
+				error : function(res) {
 					
-// 				}
-// 			})
-// 	})
+				}
+			})
+	})
 		
 	
 	
@@ -52,13 +52,25 @@
 		        $('#ArbetTable').bootstrapTable({
 		            url: '/user/getUserList',         //请求后台的URL（*）
 		            method: 'post',                      //请求方式（*）
-		            toolbar: '#toolbar',                //工具按钮用哪个容器
+// 		            toolbar: '#toolbar',                //工具按钮用哪个容器
 		            striped: true,                      //是否显示行间隔色
 		            cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
 		            pagination: true,                   //是否显示分页（*）
 		            sortable: false,                     //是否启用排序
 		            sortOrder: "asc",                   //排序方式
-		            queryParams: oTableInit.queryParams,//传递参数（*）
+// 		            data: data,
+		            queryParams : function (params) {
+	                    //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+	                    console.log(params);
+	                    console.log(0);
+	                    var temp = {   
+	                        rows: params.pageSize,                         //页面大小
+	                        page: params.page   //页码
+// 	                        sort: params.sort,      //排序列名  
+// 	                        sortOrder: params.order //排位命令（desc，asc） 
+	                    };
+	                    return temp;
+	                },//传递参数（*）
 		            sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
 		            pageNumber: 1,                       //初始化加载第一页，默认第一页
 		            pageSize: 10,                       //每页的记录行数（*）
@@ -76,22 +88,34 @@
 		            showToggle: true,                    //是否显示详细视图和列表视图的切换按钮
 		            cardView: false,                    //是否显示详细视图
 		            detailView: false,                   //是否显示父子表
+		            responseHandler: function(res) {
+		                return {
+		                    "total": res.total,//总页数
+		                    "rows": res.data   //数据
+		                 };
+		            },
 		            columns: [
 		            {
 		                field: 'id',
 		                title: 'id'
-		            }, {
+		            }, 
+		            {
 		                field: 'userName',
 		                title: '名字'
-		            }, {
-		                field: 'ct',
-		                title: '创建时间'
-		            },
+		               
+		            }, 
+// 		            {
+// 		                field: 'ct',
+// 		                title: '创建时间'
+// 		            },
 		            {
-		                field: 'operate',
-		                title: '操作',
-		                formatter: operateFormatter //自定义方法，添加操作按钮
-		            },
+	                    field:'ID',
+	                    title: '操作',
+	                    width: 120,
+	                    align: 'center',
+	                    valign: 'middle',
+	                    formatter: actionFormatter
+	                },
 		            ],
 		            rowStyle: function (row, index) {
 		                var classesArr = ['success', 'info'];
@@ -107,19 +131,20 @@
 
 		    };
 
+		    
 
 		    //得到查询的参数
-		    oTableInit.queryParams = function (params) {
-		    	console.log(params);
-		        var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
-		        		limit: params.limit,   //页面大小
-		                offset: params.offset,  //页码
-		           // "userName": "zy"   //页面大小
-		           // offset:params.offset
-		            search: params.search
-		        };
-		        return temp;
-		    };
+// 		    oTableInit.queryParams = function (params) {
+// 		    	console.log(params);
+// 		        var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+// 		        		limit: params.limit,   //页面大小
+// 		                offset: params.offset,  //页码
+// 		           // "userName": "zy"   //页面大小
+// 		           // offset:params.offset
+// 		            search: params.search
+// 		        };
+// 		        return temp;
+// 		    };
 		    return oTableInit;
 		};
 
@@ -132,6 +157,19 @@
 		        '<a class="btn active" href="#">准入</a>'
 		    ].join('');
 		}
+		
+		
+        
+		//操作栏的格式化
+        function actionFormatter(value, row, index) {
+            var id = value;
+            var result = "";
+            result += "<a href='javascript:;' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='查看'><span class='glyphicon glyphicon-search'></span></a>";
+            result += "<a href='javascript:;' class='btn btn-xs blue' onclick=\"EditViewById('" + id + "')\" title='编辑'><span class='glyphicon glyphicon-pencil'></span></a>";
+            result += "<a href='javascript:;' class='btn btn-xs red' onclick=\"DeleteByIds('" + id + "')\" title='删除'><span class='glyphicon glyphicon-remove'></span></a>";
+
+            return result;
+        }
 </script>
 </body>
 
