@@ -37,7 +37,7 @@ public class UserController {
 		return Result.success();
 	}
 	
-	@PostMapping("/getUserList")
+	@GetMapping("/getUserList")
 	public Result<List<UserEntity>> getUserList(/* @RequestBody */ UserPara u){
 		Result<List<UserEntity>> l=userServiceImpl.getUserList(u);
 		System.out.println(l.toString());

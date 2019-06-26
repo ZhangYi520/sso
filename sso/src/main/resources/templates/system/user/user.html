@@ -9,7 +9,7 @@
 <body class="gray-bg">
 
 	<table id="ArbetTable"></table>
-	<button id="demo">点我</button>
+<!-- 	<button id="demo">点我</button> -->
 
 	<th:block th:include="include :: footer" />
 	<th:block th:include="include :: layout-latest-js" />
@@ -51,14 +51,27 @@
 		    oTableInit.Init = function () {
 		        $('#ArbetTable').bootstrapTable({
 		            url: '/user/getUserList',         //请求后台的URL（*）
-		            method: 'post',                      //请求方式（*）
+		            method: 'get',                      //请求方式（*）
 		            toolbar: '#toolbar',                //工具按钮用哪个容器
 		            striped: true,                      //是否显示行间隔色
 		            cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
 		            pagination: true,                   //是否显示分页（*）
 		            sortable: false,                     //是否启用排序
 		            sortOrder: "asc",                   //排序方式
-		            queryParams: oTableInit.queryParams,//传递参数（*）
+		            queryParams: function (params) {
+				    	console.log(params);
+				        var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+				        		pageSize: params.limit,   //页面大小
+				                page: (params.offset/params.limit)+1,  //页码
+// 				                pageSize: params.pageSize,   //页面大小
+// 			                    pageNumber: params.pageNumber, 
+// 			                    page: params.pageNumber
+				           // "userName": "zy"   //页面大小
+				           // offset:params.offset
+// 				            search: params.search
+				        };
+				        return temp;
+				    },//传递参数（*）
 		            sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
 		            pageNumber: 1,                       //初始化加载第一页，默认第一页
 		            pageSize: 10,                       //每页的记录行数（*）
@@ -76,6 +89,14 @@
 		            showToggle: true,                    //是否显示详细视图和列表视图的切换按钮
 		            cardView: false,                    //是否显示详细视图
 		            detailView: false,                   //是否显示父子表
+		            responseHandler:function(res){
+		                //动态渲染表格之前获取有后台传递的数据时,用于获取出除去本身渲染所需的数据的额外参数
+		                //详见此函数参数的api
+		                return {
+		                	"rows":res.data,
+		                	"total":res.total
+		                };
+		            },
 		            columns: [
 		            {
 		                field: 'id',
@@ -83,14 +104,31 @@
 		            }, {
 		                field: 'userName',
 		                title: '名字'
-		            }, {
+		            },
+		            {
+		                field: 'headImg',
+		                title: '头像地址',
+		                formatter: function a(value, row, index) {//赋予的参数
+		        		    return [
+		        		        '<a class="btn active disabled" href="#">编辑</a>'
+		        		    ].join('');
+		        		} //自定义方法，添加操作按钮
+		            },
+		            {
 		                field: 'ct',
 		                title: '创建时间'
 		            },
 		            {
 		                field: 'operate',
 		                title: '操作',
-		                formatter: operateFormatter //自定义方法，添加操作按钮
+		                formatter: function operateFormatter(value, row, index) {//赋予的参数
+		        		    return [
+		        		        '<a class="btn active disabled" href="#">编辑</a>',
+		        		        '<a class="btn active" href="#">档案</a>',
+		        		        '<a class="btn btn-default" href="#">记录</a>',
+		        		        '<a class="btn active" href="#">准入</a>'
+		        		    ].join('');
+		        		} //自定义方法，添加操作按钮
 		            },
 		            ],
 		            rowStyle: function (row, index) {
@@ -109,29 +147,12 @@
 
 
 		    //得到查询的参数
-		    oTableInit.queryParams = function (params) {
-		    	console.log(params);
-		        var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
-		        		limit: params.limit,   //页面大小
-		                offset: params.offset,  //页码
-		           // "userName": "zy"   //页面大小
-		           // offset:params.offset
-		            search: params.search
-		        };
-		        return temp;
-		    };
+// 		    oTableInit.queryParams = 
 		    return oTableInit;
 		};
 
 
-		function operateFormatter(value, row, index) {//赋予的参数
-		    return [
-		        '<a class="btn active disabled" href="#">编辑</a>',
-		        '<a class="btn active" href="#">档案</a>',
-		        '<a class="btn btn-default" href="#">记录</a>',
-		        '<a class="btn active" href="#">准入</a>'
-		    ].join('');
-		}
+		
 </script>
 </body>
 
