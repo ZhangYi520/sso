@@ -98,7 +98,7 @@
 		            showRefresh: true,                  //是否显示刷新按钮
 		            minimumCountColumns: 2,             //最少允许的列数
 		            clickToSelect: true,                //是否启用点击选中行
-		            //height: 700,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+// 		            height: 400,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
 		            uniqueId: "no",                     //每一行的唯一标识，一般为主键列
 		            showToggle: true,                    //是否显示详细视图和列表视图的切换按钮
 		            cardView: false,                    //是否显示详细视图
@@ -134,16 +134,26 @@
 						halign : 'center',
 						valign : 'middle'
 		            },
-// 		            {
-// 		                field: 'headImg',
-// 		                title: '头像地址',
-// 		                align : 'center',
-// 		                halign : 'center',
-// 		                valign : 'middle',
-// 		                formatter : function(value, row, index) {
-// 								return '<img src="http://pic37.nipic.com/20140113/8800276_184927469000_2.png" height="40" width="40" class="imgurl"/>';
-// 						}
-// 		            },
+		            {
+		                field: 'headImg',
+		                title: '头像地址',
+		                align : 'center',
+		                halign : 'center',
+		                valign : 'middle',
+		                formatter : function(value, row, index) {
+								return '<img src="http://5b0988e595225.cdn.sohucs.com/images/20170826/b6fc1b92d3384f7f96a0e7a7e073d579.jpeg" height="40" width="40" class="imgurl"/>';
+						}
+		            },
+		            {
+		                field: 'headImg',
+		                title: '按钮',
+		                align : 'center',
+		                halign : 'center',
+		                valign : 'middle',
+		                formatter : function(value, row, index) {
+								return '<button class="btn btn-danger btn-sm" style="border-radius: 20px;">编辑</button>';
+						}
+		            },
 		            {
 		                field: 'checked',
 		                title: '审核状态',
@@ -152,9 +162,9 @@
 		                valign : 'middle',
 		                formatter : function(value, row, index) {
 		                		if(row.checked=='0'){
-		                			return '<div class="form-group"><input type="checkbox" data-size="small" class="checked" value="'+row.id+'"/></div>'
+		                			return '<input type="checkbox" class="checked" value="'+row.id+'"/>'
 		                		}else if(row.checked=="1"){
-		                			return '<div class="form-group"><input type="checkbox" data-size="small" checked class="checked" value="'+row.id+'"/></div>'
+		                			return '<input type="checkbox" checked class="checked" value="'+row.id+'"/>'
 		                		}else{
 		                			return '-';
 		                		}
@@ -204,8 +214,9 @@
   				            offText : "正常",    // 设置OFF文本  
   				            onColor : "primary",// 设置ON文本颜色     (info/success/warning/danger/primary)  
   				            offColor : "info",  // 设置OFF文本颜色        (info/success/warning/danger/primary)  
-  				            size : "mini",    // 设置控件大小,从小到大  (mini/small/normal/large)  
-  				            handleWidth:"20",//设置控件宽度
+  				            size : "large",    // 设置控件大小,从小到大  (mini/small/normal/large)  
+  				            handleWidth:"28",//设置控件宽度
+  							
   				            // 当开关状态改变时触发  
   				            onSwitchChange : function(event, state) {  
   				            var ProductId = event.target.defaultValue;
