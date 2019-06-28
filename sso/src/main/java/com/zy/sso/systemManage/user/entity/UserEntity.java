@@ -21,6 +21,7 @@ public class UserEntity implements Serializable{/**
 	private String headImg="";//头像地址
 	private String ct="";//头像地址
 	private String token;//token
+	private String checked;//审核状态1
 	private List<RoleEntity> role;//角色集合
 	
 }

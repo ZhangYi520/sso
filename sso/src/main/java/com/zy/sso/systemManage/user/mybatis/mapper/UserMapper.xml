@@ -5,7 +5,7 @@
 	<resultMap type="com.zy.sso.systemManage.user.entity.UserEntity" id="userMap">
 		<!-- property实体类属性     column SQL查询字段-->
 		<id property="id" column="id" />
-		<result property="userName" column="userName" />
+		<result property="userName" column="user_name" />
 		<result property="password" column="password" />
 	
 		<collection property="role" ofType="com.zy.sso.systemManage.user.entity.RoleEntity">
@@ -22,21 +22,21 @@
 	</resultMap>
 
 	<select id="queryUserByUserName" resultMap="userMap">
-		SELECT a.id,a.userName,a.`password`,c.roleName,e.url,e.menu_name as menuName
+		SELECT a.id,a.user_name,a.`password`,c.roleName,e.url,e.menu_name as menuName
 		FROM zy_sso_user a 
 		LEFT JOIN zy_sso_user_role b on a.id=b.userId
 		LEFT JOIN zy_sso_role c on c.id=b.roleId
 		LEFT JOIN zy_sso_role_menu d on d.roleId=c.id
 		LEFT JOIN zy_sso_menu e on e.menu_id=d.menu_id
-		WHERE a.userName=#{userName}
+		WHERE a.user_name=#{userName}
 	</select>
 	
 	<select id="getUserList" resultType="com.zy.sso.systemManage.user.entity.UserEntity" parameterType="com.zy.sso.systemManage.paramVo.UserPara">
-		select id,userName,password,headImg,date_format(ct,'%Y-%m-%d %H:%m:%s') as ct
+		select id,user_name,password,head_img,date_format(ct,'%Y-%m-%d %H:%m:%s') as ct,checked
 		from zy_sso_user
 		where 1=1
 		<if test="userName != null and userName !='' ">
-			and userName = #{userName}
+			and user_name = #{userName}
 		</if>
 	</select>
 </mapper>

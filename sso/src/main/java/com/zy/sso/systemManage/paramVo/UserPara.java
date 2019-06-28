@@ -20,5 +20,5 @@ public class UserPara extends PageRequest implements Serializable{/**
 	private String userName;//用户名
 	private String headImg="";//头像地址
 	private String ct;//创建时间
-	
+	private String check;//审核
 }

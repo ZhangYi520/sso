@@ -7,43 +7,56 @@
 <th:block th:include="include :: ztree-css" />
 </head>
 <body class="gray-bg">
-
-	<table id="ArbetTable"></table>
+<!-- 工具栏 -->
+<div id="toolbar">
+		<form class="form-inline">
+                  <div class="form-group">
+                    <label class="sr-only" for="product_line">产品线</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">产品线</div>
+                        <select class="form-control" name="product_line" id="productLine">
+                            <option value="">请选择产品线...</option>
+                        </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="sr-only" for="msg_type">消息类型</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">消息类型</div>
+                        <select class="form-control" name="msg_type" id="msgType">
+                            <option value="">请选择消息类型...</option>
+                            <option value="">请选择消息类型...</option>
+                            <option value="">请选择消息类型...</option>
+                        </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="sr-only" for="msg_type">消息类型</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">消息类型</div>
+                        <input type="text" class="form-control" name="searchTexts" id="searchText" placeholder="请输入消息名称或内容关键字...">
+                    </div>
+                  </div>
+                  <button type="button" class="btn btn-primary queryButton">查询</button>
+                </form>
+	</div>
+	
+	
+<div style="margin-left:30px;">
+	<table id="ArbetTable" class="table table-bordered"></table>
+</div>
 <!-- 	<button id="demo">点我</button> -->
 
 	<th:block th:include="include :: footer" />
-	<th:block th:include="include :: layout-latest-js" />
-	<th:block th:include="include :: ztree-js" />
+<!-- 	<th:block th:include="include :: layout-latest-js" /> -->
+<!-- 	<th:block th:include="include :: ztree-js" /> -->
 	<script th:inline="javascript">
-// 	$("#demo").click(function(){
-// 		console.log(1);
-// 		 $.ajax({
-// 				url : '/user/getUserList',
-// 				type : 'post',
-// 				contentType : 'application/json;charset=UTF=8',
-// 				data : JSON.stringify({
-// 					"userName":"zy"
-// 				}),
-// 				dataType : 'json',
-// 				success : function(res) {
-// 					console.log(res);
-					
-// 				},
-// 				error : function(res) {
-					
-// 				}
-// 			})
-// 	})
-		
-	
-	
-		
 		$(function () {
 	     //1.初始化Table
 		   var oTable = new TableInit();
 		   oTable.Init();
 		});
-
+		
 		
 		var TableInit = function () {
 		    var oTableInit = new Object();
@@ -59,10 +72,11 @@
 		            sortable: false,                     //是否启用排序
 		            sortOrder: "asc",                   //排序方式
 		            queryParams: function (params) {
-				    	console.log(params);
-				        var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+// 				    	console.log(params);
+				        var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的,每次查询时传递给后端的参数
 				        		pageSize: params.limit,   //页面大小
 				                page: (params.offset/params.limit)+1,  //页码
+				                id:1
 // 				                pageSize: params.pageSize,   //页面大小
 // 			                    pageNumber: params.pageNumber, 
 // 			                    page: params.pageNumber
@@ -76,7 +90,7 @@
 		            pageNumber: 1,                       //初始化加载第一页，默认第一页
 		            pageSize: 10,                       //每页的记录行数（*）
 		            pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
-		            search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+		            search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
 		            contentType: "application/json;charset=UTF=8",
 		            dataType:'json',	
 		            strictSearch: true,
@@ -84,11 +98,12 @@
 		            showRefresh: true,                  //是否显示刷新按钮
 		            minimumCountColumns: 2,             //最少允许的列数
 		            clickToSelect: true,                //是否启用点击选中行
-		            height: 700,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+		            //height: 700,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
 		            uniqueId: "no",                     //每一行的唯一标识，一般为主键列
 		            showToggle: true,                    //是否显示详细视图和列表视图的切换按钮
 		            cardView: false,                    //是否显示详细视图
 		            detailView: false,                   //是否显示父子表
+		            clickToSelect:false,
 		            responseHandler:function(res){
 		                //动态渲染表格之前获取有后台传递的数据时,用于获取出除去本身渲染所需的数据的额外参数
 		                //详见此函数参数的api
@@ -99,34 +114,72 @@
 		            },
 		            columns: [
 		            {
-		                field: 'id',
-		                title: 'id'
-		            }, {
-		                field: 'userName',
-		                title: '名字'
-		            },
+		            	field: 'statebox',
+		                checkbox: true
+// 		                align : 'center',
+// 						halign : 'center',
+// 						valign : 'middle'
+		            }, 
 		            {
-		                field: 'headImg',
-		                title: '头像地址',
-		                formatter: function a(value, row, index) {//赋予的参数
-		        		    return [
-		        		        '<a class="btn active disabled" href="#">编辑</a>'
-		        		    ].join('');
-		        		} //自定义方法，添加操作按钮
+		                field: 'id',
+		                title: 'id',
+		                align : 'center',
+						halign : 'center',
+						valign : 'middle'
+		            }, 
+		            {
+		                field: 'userName',
+		                title: '名字',
+		                align : 'center',
+						halign : 'center',
+						valign : 'middle'
+		            },
+// 		            {
+// 		                field: 'headImg',
+// 		                title: '头像地址',
+// 		                align : 'center',
+// 		                halign : 'center',
+// 		                valign : 'middle',
+// 		                formatter : function(value, row, index) {
+// 								return '<img src="http://pic37.nipic.com/20140113/8800276_184927469000_2.png" height="40" width="40" class="imgurl"/>';
+// 						}
+// 		            },
+		            {
+		                field: 'checked',
+		                title: '审核状态',
+		                align : 'center',
+		                halign : 'center',
+		                valign : 'middle',
+		                formatter : function(value, row, index) {
+		                		if(row.checked=='0'){
+		                			return '<div class="form-group"><input type="checkbox" data-size="small" class="checked" value="'+row.id+'"/></div>'
+		                		}else if(row.checked=="1"){
+		                			return '<div class="form-group"><input type="checkbox" data-size="small" checked class="checked" value="'+row.id+'"/></div>'
+		                		}else{
+		                			return '-';
+		                		}
+
+								
+						}
 		            },
 		            {
 		                field: 'ct',
-		                title: '创建时间'
+		                title: '创建时间',
+		                align : 'center',
+		                halign : 'center',
+		                valign : 'middle'
 		            },
 		            {
 		                field: 'operate',
 		                title: '操作',
+		                align : 'center',
+		                halign : 'center',
+		                valign : 'middle',
 		                formatter: function operateFormatter(value, row, index) {//赋予的参数
 		        		    return [
-		        		        '<a class="btn active disabled" href="#">编辑</a>',
-		        		        '<a class="btn active" href="#">档案</a>',
-		        		        '<a class="btn btn-default" href="#">记录</a>',
-		        		        '<a class="btn active" href="#">准入</a>'
+		        		        '<button type="button" class="btn btn-primary btn-xs" >编辑</button> ',
+		        		        ' <button type="button" class="btn btn-danger btn-xs">删除</button>'
+		        		        
 		        		    ].join('');
 		        		} //自定义方法，添加操作按钮
 		            },
@@ -141,16 +194,38 @@
 		                }
 		                return { classes: strclass };
 		            },//隔行变色
+		            
+		            
+		            //该方法用于加载控件之类的，在table加载完成后执行
+		            onLoadSuccess:function(){
+		   			 /* 初始化控件 */  
+  				        $(".checked").bootstrapSwitch({  
+  				            onText : "冻结",      // 设置ON文本  
+  				            offText : "正常",    // 设置OFF文本  
+  				            onColor : "primary",// 设置ON文本颜色     (info/success/warning/danger/primary)  
+  				            offColor : "info",  // 设置OFF文本颜色        (info/success/warning/danger/primary)  
+  				            size : "mini",    // 设置控件大小,从小到大  (mini/small/normal/large)  
+  				            handleWidth:"20",//设置控件宽度
+  				            // 当开关状态改变时触发  
+  				            onSwitchChange : function(event, state) {  
+  				            var ProductId = event.target.defaultValue;
+  				                if (state == true) {
+  				                //上线
+  				                //updateProductStatus(ProductId,'AOB');
+  				                    /* alert("ON"); */
+  				                } else {
+  				                //下线
+  				                //updateProductStatus(ProductId,'AOC');
+  				                    /* alert("OFF"); */
+  				                }  
+  				            }  
+  				        });  
+		            },
 		        });
 
 		    };
-
-
-		    //得到查询的参数
-// 		    oTableInit.queryParams = 
 		    return oTableInit;
 		};
-
 
 		
 </script>
