@@ -17,7 +17,7 @@ public class demo {
 	@RequiresRoles("超级管理员")//shiro角色注解，拥有该角色才能访问
 	@RequiresPermissions("/select")//shiro权限注解，拥有该权限才能访问
 	public String to() {
-		return "idea1";
+		return "ec";
 	}
 	
 	@GetMapping("/test2")
