@@ -99,7 +99,7 @@
 		            minimumCountColumns: 2,             //最少允许的列数
 		            clickToSelect: true,                //是否启用点击选中行
 // 		            height: 400,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
-		            uniqueId: "no",                     //每一行的唯一标识，一般为主键列
+		            uniqueId: "id",                     //每一行的唯一标识，一般为主键列
 		            showToggle: true,                    //是否显示详细视图和列表视图的切换按钮
 		            cardView: false,                    //是否显示详细视图
 		            detailView: false,                   //是否显示父子表
@@ -119,14 +119,14 @@
 // 		                align : 'center',
 // 						halign : 'center',
 // 						valign : 'middle'
-		            }, 
+		            },
 		            {
 		                field: 'id',
 		                title: 'id',
 		                align : 'center',
 						halign : 'center',
 						valign : 'middle'
-		            }, 
+		            },
 		            {
 		                field: 'userName',
 		                title: '名字1',
@@ -140,7 +140,7 @@
 		                align : 'center',
 		                halign : 'center',
 		                valign : 'middle',
-		                formatter : function(value, row, index) {
+                        formatter : function(value, row, index) {
 								return '<img src="http://5b0988e595225.cdn.sohucs.com/images/20170826/b6fc1b92d3384f7f96a0e7a7e073d579.jpeg" height="40" width="40" class="imgurl"/>';
 						}
 		            },
@@ -160,17 +160,33 @@
 		                align : 'center',
 		                halign : 'center',
 		                valign : 'middle',
+                        // checkbox:true,
 		                formatter : function(value, row, index) {
-		                		if(row.checked=='0'){
-		                			return '<input type="checkbox" class="checked" value="'+row.id+'"/>'
-		                		}else if(row.checked=="1"){
-		                			return '<input type="checkbox" checked class="checked" value="'+row.id+'"/>'
-		                		}else{
-		                			return '-';
-		                		}
-
-								
-						}
+		                    // console.log(value);
+                            // console.log(row);
+                            if (row.checked == '0') {
+                                return '<input name="my-checkbox1" type="checkbox" check  class="ck" value="' + row.id + '"/>'
+                                // return {
+                                //             disabled : true,//设置是否可用
+                                //             checked : true//设置选中
+                                //         };
+                            } else if (row.checked == "1") {
+                                return '<input name="my-checkbox1" type="checkbox" checked class="ck" value="' + row.id + '"/>'
+                                // return {
+                                //     disabled : true,//设置是否可用
+                                //     checked : false//设置选中
+                                // };
+                            }
+                            // else {
+                            //     return '-';
+                            // }
+                            // if (row.state == true)
+                            //     return {
+                            //         disabled : true,//设置是否可用
+                            //         checked : true//设置选中
+                            //     };
+                            // return value;
+                        }
 		            },
 		            {
 		                field: 'ct',
@@ -187,9 +203,9 @@
 		                valign : 'middle',
 		                formatter: function operateFormatter(value, row, index) {//赋予的参数
 		        		    return [
-		        		        '<button type="button" class="btn btn-primary btn-xs" >编辑</button> ',
-		        		        ' <button type="button" class="btn btn-danger btn-xs">删除</button>'
-		        		        
+		        		        '<button type="button" class="btn btn-success btn-xs " ><i class="glyphicon glyphicon-check"></i></button> ',
+		        		        ' <button type="button" class="btn btn-danger btn-xs "><i class="glyphicon glyphicon-remove"></i></button>'
+
 		        		    ].join('');
 		        		} //自定义方法，添加操作按钮
 		            },
@@ -208,37 +224,54 @@
 		            
 		            //该方法用于加载控件之类的，在table加载完成后执行
 		            onLoadSuccess:function(){
-		   			 /* 初始化控件 */  
-  				        $(".checked").bootstrapSwitch({  
+		   			 /* 初始化控件 */
+                        $('[name="my-checkbox1"]').bootstrapSwitch({  
   				            onText : "冻结",      // 设置ON文本  
   				            offText : "正常",    // 设置OFF文本  
   				            onColor : "primary",// 设置ON文本颜色     (info/success/warning/danger/primary)  
   				            offColor : "info",  // 设置OFF文本颜色        (info/success/warning/danger/primary)  
-  				            size : "large",    // 设置控件大小,从小到大  (mini/small/normal/large)  
+  				            size : "mini",    // 设置控件大小,从小到大  (mini/small/normal/large)  
   				            handleWidth:"28",//设置控件宽度
-  							
   				            // 当开关状态改变时触发  
   				            onSwitchChange : function(event, state) {  
-  				            var ProductId = event.target.defaultValue;
+  				//             var ProductId = event.target.defaultValue;
   				                if (state == true) {
+  				                        // console.log("按钮打开");
   				                //上线
   				                //updateProductStatus(ProductId,'AOB');
   				                    /* alert("ON"); */
   				                } else {
+                                        // console.log("按钮关闭");
   				                //下线
   				                //updateProductStatus(ProductId,'AOC');
   				                    /* alert("OFF"); */
   				                }  
   				            }  
-  				        });  
+  				        });
+
+
+
+                        // $(".ck").bootstrapSwitch('state',true);
 		            },
 		        });
 
 		    };
 		    return oTableInit;
 		};
-
-		
+        // var ff = function () {
+        //     console.log(111);
+        //     var rows = $('#ArbetTable').bootstrapTable('getData');
+        //     console.log(rows.length);
+        //     for (var i = 0; i < rows.length; i++) {
+        //         var sendee = rows[i].checked;
+        //         if (sendee == true) {
+        //             $(".ck1").bootstrapSwitch('state', true);
+        //         } else if (sendee == false) {
+        //             $(".ck0").bootstrapSwitch("state", false);
+        //         }
+        //     }
+        // }
+        // setTimeout(ff,100);
 </script>
 </body>
 
