@@ -32,7 +32,7 @@
 	</select>
 	
 	<select id="getUserList" resultType="com.zy.sso.systemManage.user.entity.UserEntity" parameterType="com.zy.sso.systemManage.paramVo.UserPara">
-		select id,user_name,password,head_img,ct
+		select id,user_name,password,head_img,date_format(ct,'%Y-%m-%d %H:%i:%s') as ct ,checked
 		from zy_sso_user
 		where 1=1
 		<if test="userName != null and userName !='' ">
