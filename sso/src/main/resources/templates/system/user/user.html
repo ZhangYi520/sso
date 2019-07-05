@@ -162,30 +162,19 @@
 		                valign : 'middle',
                         // checkbox:true,
 		                formatter : function(value, row, index) {
-		                    // console.log(value);
-                            // console.log(row);
+                            var userid=row.id;
                             if (row.checked == '0') {
-                                return '<input name="my-checkbox1" type="checkbox" check  class="ck" value="' + row.id + '"/>'
-                                // return {
-                                //             disabled : true,//设置是否可用
-                                //             checked : true//设置选中
-                                //         };
+                                return '<input name="my-checkbox1" type="checkbox" class="ck" value="' + row.id + '"/>'
                             } else if (row.checked == "1") {
-                                return '<input name="my-checkbox1" type="checkbox" checked class="ck" value="' + row.id + '"/>'
-                                // return {
-                                //     disabled : true,//设置是否可用
-                                //     checked : false//设置选中
-                                // };
+                                return '<input name="my-checkbox2" type="checkbox" checked class="ck" value="' + row.id + '"/>'
                             }
-                            // else {
-                            //     return '-';
+                            // if(value == true){
+                            //     var value1='<input value="'+userid+'" type="checkbox" name="my-checkbox1" checked/>';
+                            //     return  value1;
+                            // }else{
+                            //     return '<input value="'+userid+'" type="checkbox"  name="my-checkbox2"/>';
                             // }
-                            // if (row.state == true)
-                            //     return {
-                            //         disabled : true,//设置是否可用
-                            //         checked : true//设置选中
-                            //     };
-                            // return value;
+
                         }
 		            },
 		            {
@@ -225,53 +214,106 @@
 		            //该方法用于加载控件之类的，在table加载完成后执行
 		            onLoadSuccess:function(){
 		   			 /* 初始化控件 */
-                        $('[name="my-checkbox1"]').bootstrapSwitch({  
-  				            onText : "冻结",      // 设置ON文本  
-  				            offText : "正常",    // 设置OFF文本  
-  				            onColor : "primary",// 设置ON文本颜色     (info/success/warning/danger/primary)  
-  				            offColor : "info",  // 设置OFF文本颜色        (info/success/warning/danger/primary)  
-  				            size : "mini",    // 设置控件大小,从小到大  (mini/small/normal/large)  
-  				            handleWidth:"28",//设置控件宽度
-  				            // 当开关状态改变时触发  
-  				            onSwitchChange : function(event, state) {  
-  				//             var ProductId = event.target.defaultValue;
-  				                if (state == true) {
-  				                        // console.log("按钮打开");
-  				                //上线
-  				                //updateProductStatus(ProductId,'AOB');
-  				                    /* alert("ON"); */
-  				                } else {
-                                        // console.log("按钮关闭");
-  				                //下线
-  				                //updateProductStatus(ProductId,'AOC');
-  				                    /* alert("OFF"); */
-  				                }  
-  				            }  
-  				        });
+                  //       $('[name="my-checkbox1"]').bootstrapSwitch({  
+  				//             onText : "冻结",      // 设置ON文本  
+  				//             offText : "正常",    // 设置OFF文本  
+  				//             onColor : "primary",// 设置ON文本颜色     (info/success/warning/danger/primary)  
+  				//             offColor : "info",  // 设置OFF文本颜色        (info/success/warning/danger/primary)  
+  				//             size : "mini",    // 设置控件大小,从小到大  (mini/small/normal/large)  
+  				//             handleWidth:"28",//设置控件宽度
+  				//             // 当开关状态改变时触发  
+  				//             onSwitchChange : function(event, state) {  
+  				//                 if (state == true) {
+  				//                         // console.log("按钮打开");
+  				//                 } else {
+                  //                       // console.log("按钮关闭");
+  				//                 }  
+  				//             }  
+  				//         });
+
+                        $("[name='my-checkbox1']").bootstrapSwitch({//分种类初始化
+                            onText:"是",
+                            offText:"否",
+                            onColor:"success",
+                            offColor:"danger",
+                            size:"small",
+                            onSwitchChange:function(event,state){
+                                if(state==true){
+                                    // var id=this.value;
+                                    // var url_send=urlHead()+"/rest/setsms?userid="+id+"&sendee=true";
+                                    // $.getJSON(url_send,function(data,status){
+                                    //     if(data.status==200){
+                                    //         toastr.success("该管理员已经成为短信接收人！")
+                                    //     }else{
+                                    //         toastr.error("修改失败");
+                                    //     }
+                                    // })
+                                }else{
+                                    // var id=this.value;
+                                    // var url_send=urlHead()+"/rest/setsms?userid="+id+"&sendee=false";
+                                    // $.getJSON(url_send,function(data,status){
+                                    //     if(data.status==200){
+                                    //         toastr.success("已取消该管理员的短信接收权限！")
+                                    //     }else{
+                                    //         toastr.error("修改失败");
+                                    //     }
+                                    // })
+                                }
+                            },
+                        });
+
+                        $("[name='my-checkbox2']").bootstrapSwitch({
+                            onText:"是",
+                            offText:"否",
+                            onColor:"success",
+                            offColor:"danger",
+                            size:"small",
+                            onSwitchChange:function(event,state){
+                                if(state==true){
+                                    // var id=this.value;
+                                    // var url_send=urlHead()+"/rest/setsms?userid="+id+"&sendee=true";
+                                    // $.getJSON(url_send,function(data,status){
+                                    //     if(data.status==200){
+                                    //         toastr.success("该管理员已经成为短信接收人！")
+                                    //     }else{
+                                    //         toastr.error("修改失败");
+                                    //     }
+                                    // })
+                                }else{
+                                    // var id=this.value;
+                                    // var url_send=urlHead()+"/rest/setsms?userid="+id+"&sendee=false";
+                                    // $.getJSON(url_send,function(data,status){
+                                    //     if(data.status==200){
+                                    //         toastr.success("已取消该管理员的短信接收权限！")
+                                    //     }else{
+                                    //         toastr.error("修改失败");
+                                    //     }
+                                    // })
+                                }
+                            },
+                        })
 
 
-
-                        // $(".ck").bootstrapSwitch('state',true);
 		            },
 		        });
 
 		    };
 		    return oTableInit;
 		};
-        // var ff = function () {
-        //     console.log(111);
-        //     var rows = $('#ArbetTable').bootstrapTable('getData');
-        //     console.log(rows.length);
-        //     for (var i = 0; i < rows.length; i++) {
-        //         var sendee = rows[i].checked;
-        //         if (sendee == true) {
-        //             $(".ck1").bootstrapSwitch('state', true);
-        //         } else if (sendee == false) {
-        //             $(".ck0").bootstrapSwitch("state", false);
-        //         }
-        //     }
-        // }
-        // setTimeout(ff,100);
+        var ff = function () {
+            console.log(111);
+            var rows = $('#ArbetTable').bootstrapTable('getData');
+            console.log(rows.length);
+            for (var i = 0; i < rows.length; i++) {
+                var sendee = rows[i].checked;
+                if(sendee==true){
+                    $("[name='my-checkbox1']").bootstrapSwitch('state',true);
+                }else if(sendee==false){
+                    $("[name='my-checkbox2']").bootstrapSwitch("state",false);
+                }
+            }
+        }
+        setTimeout(ff,1000);
 </script>
 </body>
 
