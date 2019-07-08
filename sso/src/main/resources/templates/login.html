@@ -77,8 +77,8 @@
     <script src="js/Particleground.js" th:href="@{/js/Particleground.js}" type="text/javascript"></script>
     <script src="js/Treatment.js" th:href="@{/js/Treatment.js}" type="text/javascript"></script>
     <script src="js/jquery.mockjax.js" th:href="@{/js/jquery.mockjax.js}" type="text/javascript"></script>
-	<script type="text/javascript"  th:inline="none">
-	
+	<script type="text/javascript" th:inline="javascript">
+
 		login();
 		function login(){
 			var href=window.location.href;
@@ -211,7 +211,7 @@
 	                };
 					console.log(JsonData);
 					$.ajax({
-						url : '/login',
+						url : [[@{/login}]],
 						type : 'post',
 						contentType : 'application/json;charset=UTF=8',
 						data : JSON.stringify(JsonData),
@@ -241,7 +241,7 @@
                                     $('.success').fadeIn(1000);
                                     $('.success').html(res.msg);
 										//跳转操作
-                                    window.location.href="/index?userName="+userName;
+                                    window.location.href=[[@{/index}]]   +'?userName='+userName;
                                 } else {
                                 	var index = layer.alert(res.msg, { icon: 5, time: 2000, offset: 't', closeBtn: 0, title: '错误信息', btn: [], anim: 2, shade: 0 });
                                	    layer.style(index, {

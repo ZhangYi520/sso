@@ -43,6 +43,7 @@ public class ToViewController {
 	@GetMapping("/index")
 	public String toIndex(ModelMap mmap,String userName) {
 		//进入主页时获取菜单、用户等信息
+//		userName="zy";
 		UserEntity u=(UserEntity)RedisTemplateUtil.redisTemplate.opsForHash().get("login",userName);//获取redis中保存的用户信息
 		Result<List<Menu>> resList = menuServiceImpl.selectList(userName);
 		System.out.println(resList);

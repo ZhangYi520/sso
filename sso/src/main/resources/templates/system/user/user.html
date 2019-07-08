@@ -63,7 +63,7 @@
 		    //初始化Table
 		    oTableInit.Init = function () {
 		        $('#ArbetTable').bootstrapTable({
-		            url: '/user/getUserList',         //请求后台的URL（*）
+		            url:[[@{/user/getUserList}]],       //请求后台的URL（*）
 		            method: 'get',                      //请求方式（*）
 		            toolbar: '#toolbar',                //工具按钮用哪个容器
 		            striped: true,                      //是否显示行间隔色
@@ -164,9 +164,9 @@
 		                formatter : function(value, row, index) {
                             var userid=row.id;
                             if (row.checked == '0') {
-                                return '<input name="my-checkbox1" type="checkbox" class="ck" value="' + row.id + '"/>'
+                                return '<input name="my-checkbox0" type="checkbox" class="ck" value="' + row.id + '"/>'
                             } else if (row.checked == "1") {
-                                return '<input name="my-checkbox2" type="checkbox" checked class="ck" value="' + row.id + '"/>'
+                                return '<input name="my-checkbox1" type="checkbox" checked class="ck" value="' + row.id + '"/>'
                             }
                             // if(value == true){
                             //     var value1='<input value="'+userid+'" type="checkbox" name="my-checkbox1" checked/>';
@@ -231,12 +231,12 @@
   				//             }  
   				//         });
 
-                        $("[name='my-checkbox1']").bootstrapSwitch({//分种类初始化
+                        $("[name='my-checkbox0']").bootstrapSwitch({//分种类初始化
                             onText:"是",
                             offText:"否",
                             onColor:"success",
                             offColor:"danger",
-                            size:"small",
+                            size:"mini",
                             onSwitchChange:function(event,state){
                                 if(state==true){
                                     // var id=this.value;
@@ -262,12 +262,12 @@
                             },
                         });
 
-                        $("[name='my-checkbox2']").bootstrapSwitch({
+                        $("[name='my-checkbox1']").bootstrapSwitch({
                             onText:"是",
                             offText:"否",
                             onColor:"success",
                             offColor:"danger",
-                            size:"small",
+                            size:"large",
                             onSwitchChange:function(event,state){
                                 if(state==true){
                                     // var id=this.value;
@@ -301,16 +301,19 @@
 		    return oTableInit;
 		};
         var ff = function () {
-            console.log(111);
+            // console.log(111);
             var rows = $('#ArbetTable').bootstrapTable('getData');
-            console.log(rows.length);
+            // console.log(rows.length);
             for (var i = 0; i < rows.length; i++) {
+                // console.log(rows[i]);
                 var sendee = rows[i].checked;
                 if(sendee==true){
                     $("[name='my-checkbox1']").bootstrapSwitch('state',true);
-                }else if(sendee==false){
-                    $("[name='my-checkbox2']").bootstrapSwitch("state",false);
                 }
+                else if(sendee==false){
+                    $("[name='my-checkbox0']").bootstrapSwitch("state",false);
+                }
+
             }
         }
         setTimeout(ff,1000);
