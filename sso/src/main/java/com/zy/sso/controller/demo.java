@@ -1,5 +1,6 @@
 package com.zy.sso.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -56,4 +57,28 @@ public class demo {
 ////		System.out.println(selectList);
 //		return 1;
 //	}
+
+	public static void main (String [] args){
+
+	}
+	class Solution{
+		public ListNode FindKthToTail(ListNode head,int k) {
+			return null;
+		}
+	}
+
+
+	class ListNode{
+		int val;
+		ListNode next;
+
+		public int getVal() {
+			return val;
+		}
+
+		public void setVal(int val) {
+			this.val = val;
+		}
+	}
+
 }
